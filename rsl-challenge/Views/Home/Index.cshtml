@@ -1,0 +1,26 @@
+﻿@model rsl_challenge.Models.LotteryResultsList
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <table>
+        @foreach (var lotteryResult in Model.DrawResults)
+        {
+
+            <tr>
+                <td>@lotteryResult.DrawDisplayName</td>
+                <td>@lotteryResult.ProductId</td>
+                <td>
+                <picture>
+                    <source srcset="@lotteryResult.DrawLogoUrl" />
+                    <img src="@lotteryResult.DrawLogoUrl" alt="@lotteryResult.DrawDisplayName"/>
+                </picture>
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+    </table>
+

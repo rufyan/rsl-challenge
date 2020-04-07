@@ -12,6 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace rsl_challenge
 {
+    public class EndPoint
+    {
+        public string Root { get; set; }
+        public string OpenDraws{ get; set; }
+        public string LatestResults { get; set; }
+    }
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -33,6 +39,7 @@ namespace rsl_challenge
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<EndPoint>(Configuration.GetSection("Endpoint"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +59,12 @@ namespace rsl_challenge
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
