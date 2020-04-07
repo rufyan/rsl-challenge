@@ -22,9 +22,9 @@ namespace rsl_challenge.Services
             return lottery;
         }
 
-        public static DrawsList GetLotteryDrawList()
+        public static DrawsList GetOpenDrawList()
         {
-            RunAsync("lotteryresults").GetAwaiter().GetResult();
+            RunAsync("opendraw").GetAwaiter().GetResult();
             return draw;
         }
 
@@ -37,7 +37,7 @@ namespace rsl_challenge.Services
                     lottery = await GetLatestResultsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/latestresults");
                     break;
                 case "opendraw":
-                    draw = await GetOpenDrawsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/latestresults");
+                    draw = await GetOpenDrawsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/opendraws");
                     break;
             }
         }
@@ -52,7 +52,7 @@ namespace rsl_challenge.Services
                     { "MaxDrawCountPerProduct", "2" }
                     //,{ "OptionalProductFilter", "[\"Pools\"]" }
                 };
-            string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCountPerProduct\": 1},{ \"OptionalProductFilter\": [\"Tattslotto\"]}";
+            string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCountPerProduct\": 2, \"OptionalProductFilter\": [\"Tattslotto\"]}";
             var jsonString = JsonConvert.SerializeObject(values);
             var content = new StringContent(str, Encoding.UTF8, "application/json");
 
@@ -74,7 +74,7 @@ namespace rsl_challenge.Services
                     { "MaxDrawCountPerProduct", "2" }
                     //,{ "OptionalProductFilter", "[\"Pools\"]" }
                 };
-            string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCountPerProduct\": 1},{ \"OptionalProductFilter\": [\"Tattslotto\"]}";
+            string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCount\": 3, \"OptionalProductFilter\": [\"Ozlotto\", \"TattsLotto\", \"Powerball\"]}";
             var jsonString = JsonConvert.SerializeObject(values);
             var content = new StringContent(str, Encoding.UTF8, "application/json");
 

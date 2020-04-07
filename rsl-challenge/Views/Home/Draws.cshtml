@@ -1,0 +1,34 @@
+﻿@model rsl_challenge.Models.DrawsList
+
+@{
+    ViewData["Title"] = "RSL Code challenge - CProsser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model !=null) {
+    <table>
+        @foreach (var draw in Model.Draws)
+        {
+        <thead>
+            <tr>
+                <td></td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                <picture>
+                    <source srcset="@draw.DrawLogoUrl" />
+                    <img src="@draw.DrawLogoUrl" alt="@draw.ProductId" />
+                </picture>
+            </td>
+            <td>@draw.DrawNumber</td>
+            <td>@draw.DrawDisplayName</td>
+            <td>
+                @string.Format("{0:C}", draw.Div1Amount)
+            </td>
+            <td>@draw.DrawDate.ToString("dddd, dd MMMM")</td>
+        </tr>
+        }
+    </table>
+} else {
+<p>It appears there are no results</p>
+}
