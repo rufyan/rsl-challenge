@@ -5,22 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <table>
-        @foreach (var lotteryResult in Model.DrawResults)
-        {
+<h1>
+    Welcome to Conn Prosser&rsquo;s code challenge response
+</h1> 
 
-            <tr>
-                <td>@lotteryResult.DrawDisplayName</td>
-                <td>@lotteryResult.ProductId</td>
-                <td>
-                <picture>
-                    <source srcset="@lotteryResult.DrawLogoUrl" />
-                    <img src="@lotteryResult.DrawLogoUrl" alt="@lotteryResult.DrawDisplayName"/>
-                </picture>
-                </td>
-                <td>
-                </td>
-            </tr>
-        }
-    </table>
-
+<a href="/home/draws">View draws</a>
+   

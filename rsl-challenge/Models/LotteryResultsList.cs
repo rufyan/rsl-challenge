@@ -7,6 +7,7 @@ namespace rsl_challenge.Models
 {
     public class LotteryResultsList
     {
+        //Collection of lottery results
         public List<LotteryResult> DrawResults { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace rsl_challenge.Services
 {
     public class theLott
     {
+        //Async tasks that hit theLott api endpoints
+
         static HttpClient client = new HttpClient();
         static LotteryResultsList lottery = new LotteryResultsList();
         static DrawsList draw = new DrawsList();
@@ -33,10 +35,11 @@ namespace rsl_challenge.Services
             //TODO: use config keys for endpoints
             switch (datatype) {
                 case "lotteryresults":
-                    // Get the results
+                    // Get latest results results
                     lottery = await GetLatestResultsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/latestresults");
                     break;
                 case "opendraw":
+                    //Get open draws
                     draw = await GetOpenDrawsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/opendraws");
                     break;
             }
@@ -45,7 +48,7 @@ namespace rsl_challenge.Services
         static async Task<LotteryResultsList> GetLatestResultsAsync(string path)
         {
             LotteryResultsList results = null;
-            //TODO: Change to variable format
+            //TODO: Change to variable/dynamic format
             var values = new Dictionary<string, string>
                 {
                     { "CompanyId", "Tattersalls" },
@@ -68,6 +71,7 @@ namespace rsl_challenge.Services
         static async Task<DrawsList> GetOpenDrawsAsync(string path)
         {
             DrawsList results = null;
+            //TODO: Change to variable/dynamic format
             var values = new Dictionary<string, string>
                 {
                     { "CompanyId", "Tattersalls" },
@@ -78,9 +82,11 @@ namespace rsl_challenge.Services
             var jsonString = JsonConvert.SerializeObject(values);
             var content = new StringContent(str, Encoding.UTF8, "application/json");
 
+            //Hit the api with Post method
             HttpResponseMessage response = await client.PostAsync(path, content);
             if (response.IsSuccessStatusCode)
             {
+                //Convert results to object
                 results = await response.Content.ReadAsAsync<DrawsList>();
             }
             return results;

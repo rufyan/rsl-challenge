@@ -8,6 +8,7 @@ namespace rsl_challenge.Models
 {
     public class Dividend
     {
+        //Dividend
         public int Division { get; set; }
         public int BlocNumberOfWinners { get; set; }
         public decimal BlocDividend { get; set; }
@@ -15,6 +16,7 @@ namespace rsl_challenge.Models
         public int CompanyNumberOfWinners { get; set; }
         public decimal CompanyDividend { get; set; }
         public int PoolTransferredTo { get; set; }
+        //TODO: include PoolTransferType in class
         //public PoolTransferType
     }
 }
