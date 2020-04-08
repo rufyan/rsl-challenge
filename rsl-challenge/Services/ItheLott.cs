@@ -9,6 +9,8 @@ namespace rsl_challenge.Services
     public interface ItheLott
     {
         DrawsList GetOpenDrawList();
+        LotteryResultsList GetLotteryResultsList();
+
     }
 
 }

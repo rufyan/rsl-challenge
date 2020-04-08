@@ -9,9 +9,18 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: museo_sans500;
+    text-align: center;
 }
 
-
+a {
+    text-decoration: none;
+}
+.btn {
+    background: #000;
+    border-radius: 20px;
+    color: #fff;
+    padding: 10px 15px
+}
 
 table.draw-data {
     margin:0 auto;

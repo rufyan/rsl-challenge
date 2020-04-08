@@ -19,24 +19,25 @@
     <tbody>
         @foreach (var draw in Model.Draws)
         {
+            var imageUrl = draw.DrawLogoUrl.Contains("http") ? "draw.DrawLogoUrl" : "../images/" + draw.DrawLogoUrl;
+            
+            <tr>
+                <td>
+                    <picture>
+                        <source srcset="@imageUrl" />
 
-        <tr>
-            <td>
-                <picture>
-                    <source srcset="@draw.DrawLogoUrl" />
-                    @* Images not currently working *@
-                    <img src="@draw.DrawLogoUrl" alt="@draw.ProductId" />
-                </picture>
-            </td>
-            <td>@draw.DrawNumber</td>
-            <td>@draw.DrawDisplayName</td>
-            <td>
-                @string.Format("{0:C}", draw.Div1Amount)
-            </td>
-            <td>@draw.DrawDate.ToString("dddd, dd MMMM")</td>
-        </tr>
+                        <img src="@imageUrl" alt="@draw.ProductId" />
+                    </picture>
+                </td>
+                <td>@draw.DrawNumber</td>
+                <td>@draw.DrawDisplayName</td>
+                <td>
+                    @string.Format("{0:C}", draw.Div1Amount)
+                </td>
+                <td>@draw.DrawDate.ToString("dddd, dd MMMM")</td>
+            </tr>
         }
-        </tbody>
+    </tbody>
 </table>
 } else {
 <p>It appears there are no results</p>

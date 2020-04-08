@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using rsl_challenge.Repository;
 using rsl_challenge.Services;
 
 namespace rsl_challenge
@@ -43,6 +44,7 @@ namespace rsl_challenge
             //services.Configure<EndPoint>(Configuration.GetSection("Endpoint"));
             // Add application services
             services.AddTransient<ItheLott, theLott>();
+            services.AddTransient<IDrawsRepository, DrawRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

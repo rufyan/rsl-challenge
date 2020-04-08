@@ -26,7 +26,7 @@ namespace rsl_challenge.Services
          LotteryResultsList lottery = new LotteryResultsList();
          DrawsList draw = new DrawsList();
 
-        public  LotteryResultsList GetLotteryResultsList()
+        public LotteryResultsList GetLotteryResultsList()
         {
             RunAsync("lotteryresults").GetAwaiter().GetResult();
             return lottery;
