@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using rsl_challenge.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using rsl_challenge.Models;
 
 namespace rsl_challenge.Repository
 {

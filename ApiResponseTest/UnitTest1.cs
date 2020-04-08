@@ -5,12 +5,42 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using rsl_challenge.Repository;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ApiResponseTest
 {
     [TestClass]
     public class UnitTest1 
     {
+        ItheLott _theLott;
+        IDrawsRepository _drawRepository;
+
+        public UnitTest1()
+        {
+        }
+
+        public UnitTest1(ItheLott theLott)
+        {
+            _theLott = theLott;
+        }
+        [TestInitialize]
+        public void Setup()
+        {
+            var services = new ServiceCollection();
+            // Add services
+            services.AddTransient<ItheLott, theLott>();
+        }
+
+        // Test not running due to _theLott being null
+        //[TestMethod]
+        //public void CheckOpenDrawsCount()
+        //{
+        //    var model = new DrawsList();
+        //    model = _theLott.GetOpenDrawList();
+        //    var openDrawCount = model.Draws.Count;
+        //    Assert.IsTrue(openDrawCount > 0);
+        //}
+
         [TestMethod]
         public void AsyncCheckOpenDrawsCount()
         {

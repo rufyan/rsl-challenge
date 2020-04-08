@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using rsl_challenge.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +19,6 @@ namespace rsl_challenge.Services
         LotteryResultsList lottery = new LotteryResultsList();
         DrawsList draw = new DrawsList();
 
-        //Async tasks that hit theLott api endpoints
-
         public LotteryResultsList GetLotteryResultsList()
         {
             RunAsync("lotteryresults").GetAwaiter().GetResult();
@@ -38,10 +31,11 @@ namespace rsl_challenge.Services
             return draw;
         }
 
-         async Task RunAsync(string datatype)
+        //Async tasks that hit theLott api endpoints
+        async Task RunAsync(string endpointtype)
         {
             var path = _config.GetValue<string>("Endpoint:Root");
-            switch (datatype) {
+            switch (endpointtype) {
                 case "lotteryresults":
                     // Get latest results results
                     lottery = await GetLatestResultsAsync(string.Concat(path + _config.GetValue<string>("Endpoint:LatestResults")));
@@ -64,21 +58,13 @@ namespace rsl_challenge.Services
             {
                 results = await response.Content.ReadAsAsync<LotteryResultsList>();
             }
-            //TODO: Handle error
             return results;
         }
 
          async Task<DrawsList> GetOpenDrawsAsync(string path)
         {
             DrawsList results = null;
-            //TODO: Change to variable/dynamic format
-            //var values = new Dictionary<string, string>
-            //    {
-            //        { "CompanyId", "Tattersalls" },
-            //        { "MaxDrawCountPerProduct", "2" }
-            //        //,{ "OptionalProductFilter", "[\"Pools\"]" }
-            //    };
-            //var jsonString = JsonConvert.SerializeObject(values);
+            //TODO - pass CompanyId and OptionalProductFilters through as json object
             string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCount\": 3, \"OptionalProductFilter\": [\"Ozlotto\", \"TattsLotto\", \"Powerball\"]}";
             //Attempting to get GoldLotto using GoldenCasket 
             //string str = "{ \"CompanyId\": \"GoldenCasket\",  \"MaxDrawCount\": 3, \"OptionalProductFilter\": [\"Ozlotto\", \"GoldLotto\", \"Powerball\"]}";
