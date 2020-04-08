@@ -39,11 +39,12 @@ namespace rsl_challenge
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //services.Configure<EndPoint>(Configuration.GetSection("Endpoint"));
-            // Add application services
+
+            // Add services
             services.AddTransient<ItheLott, theLott>();
+
+            // Add Repositories
             services.AddTransient<IDrawsRepository, DrawRepository>();
         }
 

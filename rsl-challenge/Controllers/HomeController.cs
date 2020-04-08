@@ -27,11 +27,12 @@ namespace rsl_challenge.Controllers
         public IActionResult Draws()
         {
 
-            var model = new DrawsList();
+            var drawsList = new DrawsList();
 
-            model = _theLott.GetOpenDrawList();
-            var hydrateModel = _drawRepository.HydrateDraws(model);
-            return View(hydrateModel);
+            drawsList = _theLott.GetOpenDrawList();
+            //If drawsList contains data, hydrate it for the view
+            var hydratedModel = drawsList !=null && drawsList.Draws.Count > 0 ? _drawRepository.HydrateDraws(drawsList) : null;
+            return View(hydratedModel);
         }
     }
 }

@@ -20,11 +20,11 @@ namespace rsl_challenge.Services
             _config = config;
         }
 
-        //Async tasks that hit theLott api endpoints
+        HttpClient client = new HttpClient();
+        LotteryResultsList lottery = new LotteryResultsList();
+        DrawsList draw = new DrawsList();
 
-         HttpClient client = new HttpClient();
-         LotteryResultsList lottery = new LotteryResultsList();
-         DrawsList draw = new DrawsList();
+        //Async tasks that hit theLott api endpoints
 
         public LotteryResultsList GetLotteryResultsList()
         {
@@ -45,26 +45,18 @@ namespace rsl_challenge.Services
                 case "lotteryresults":
                     // Get latest results results
                     lottery = await GetLatestResultsAsync(string.Concat(path + _config.GetValue<string>("Endpoint:LatestResults")));
-                    break;
+                break;
                 case "opendraw":
                     //Get open draws
                     draw = await GetOpenDrawsAsync(string.Concat(path + _config.GetValue<string>("Endpoint:OpenDraws")));
-                    break;
+                break;
             }
         }
 
          async Task<LotteryResultsList> GetLatestResultsAsync(string path)
         {
             LotteryResultsList results = null;
-            //TODO: Change to variable/dynamic format
-            var values = new Dictionary<string, string>
-                {
-                    { "CompanyId", "Tattersalls" },
-                    { "MaxDrawCountPerProduct", "2" }
-                    //,{ "OptionalProductFilter", "[\"Pools\"]" }
-                };
             string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCountPerProduct\": 2, \"OptionalProductFilter\": [\"Tattslotto\"]}";
-            var jsonString = JsonConvert.SerializeObject(values);
             var content = new StringContent(str, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(path, content);
@@ -80,14 +72,17 @@ namespace rsl_challenge.Services
         {
             DrawsList results = null;
             //TODO: Change to variable/dynamic format
-            var values = new Dictionary<string, string>
-                {
-                    { "CompanyId", "Tattersalls" },
-                    { "MaxDrawCountPerProduct", "2" }
-                    //,{ "OptionalProductFilter", "[\"Pools\"]" }
-                };
+            //var values = new Dictionary<string, string>
+            //    {
+            //        { "CompanyId", "Tattersalls" },
+            //        { "MaxDrawCountPerProduct", "2" }
+            //        //,{ "OptionalProductFilter", "[\"Pools\"]" }
+            //    };
+            //var jsonString = JsonConvert.SerializeObject(values);
             string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCount\": 3, \"OptionalProductFilter\": [\"Ozlotto\", \"TattsLotto\", \"Powerball\"]}";
-            var jsonString = JsonConvert.SerializeObject(values);
+            //Attempting to get GoldLotto using GoldenCasket 
+            //string str = "{ \"CompanyId\": \"GoldenCasket\",  \"MaxDrawCount\": 3, \"OptionalProductFilter\": [\"Ozlotto\", \"GoldLotto\", \"Powerball\"]}";
+
             var content = new StringContent(str, Encoding.UTF8, "application/json");
 
             //Hit the api with Post method
