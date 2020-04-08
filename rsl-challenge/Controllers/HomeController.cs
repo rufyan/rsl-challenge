@@ -16,12 +16,9 @@ namespace rsl_challenge.Controllers
             _drawRepository = DrawRepository;
         }
 
-        // GET: /<controller>/
         public IActionResult Index()
         {
-            var model = new LotteryResultsList();
-            //model = _theLott.GetLotteryResultsList();
-            return View(model);
+            return View();
         }
 
         public IActionResult Draws()
@@ -34,5 +31,7 @@ namespace rsl_challenge.Controllers
             var hydratedModel = drawsList !=null && drawsList.Draws.Count > 0 ? _drawRepository.HydrateDraws(drawsList) : null;
             return View(hydratedModel);
         }
+
+        //TODO - Add routes to display results for each draw
     }
 }

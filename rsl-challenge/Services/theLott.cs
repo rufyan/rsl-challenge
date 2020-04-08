@@ -34,6 +34,7 @@ namespace rsl_challenge.Services
         //Async tasks that hit theLott api endpoints
         async Task RunAsync(string endpointtype)
         {
+            //Get path from appsettings.json
             var path = _config.GetValue<string>("Endpoint:Root");
             switch (endpointtype) {
                 case "lotteryresults":
@@ -64,6 +65,7 @@ namespace rsl_challenge.Services
          async Task<DrawsList> GetOpenDrawsAsync(string path)
         {
             DrawsList results = null;
+            //TODO - add a MemoryCache or similar to store response data
             //TODO - pass CompanyId and OptionalProductFilters through as json object
             string str = "{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCount\": 3, \"OptionalProductFilter\": [\"Ozlotto\", \"TattsLotto\", \"Powerball\"]}";
             //Attempting to get GoldLotto using GoldenCasket 
