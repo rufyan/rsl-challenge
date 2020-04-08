@@ -4,15 +4,22 @@
     ViewData["Title"] = "RSL Code challenge - CProsser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @if (Model !=null) {
-    <table>
+<table class="draw-data">
+    <thead>
+        <tr>
+            <th class="draw-image">Draw</th>
+            <th class="draw-number">Number</th>
+            <th class="draw-name">Name</th>
+            <th class="draw-amount">Jackpot</th>
+            <th class="draw-date">Date</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var draw in Model.Draws)
         {
-        <thead>
-            <tr>
-                <td></td>
-            </tr>
-        </thead>
+
         <tr>
             <td>
                 <picture>
@@ -29,7 +36,8 @@
             <td>@draw.DrawDate.ToString("dddd, dd MMMM")</td>
         </tr>
         }
-    </table>
+        </tbody>
+</table>
 } else {
 <p>It appears there are no results</p>
 }

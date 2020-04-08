@@ -13,8 +13,33 @@ body {
 
 
 
-table {
+table.draw-data {
+    margin:0 auto;
     padding: 0;
+}
+
+.draw-data th {
+    text-align:left ;
+}
+
+.draw-image {
+    width: 200px;
+}
+
+.draw-number {
+    width: 100px;
+}
+
+.draw-name {
+    width: 300px;
+}
+
+.draw-amount {
+    width: 200px;
+}
+
+.draw-date {
+    width: 200px;
 }
 
 /* Hide/rearrange for smaller screens */

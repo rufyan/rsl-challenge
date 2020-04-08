@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using rsl_challenge.Models;
 using System;
 using System.Collections.Generic;
@@ -10,42 +12,48 @@ using System.Threading.Tasks;
 
 namespace rsl_challenge.Services
 {
-    public class theLott
+    public class theLott : ItheLott
     {
+        private readonly IConfiguration _config;
+        public theLott(IConfiguration config)
+        {
+            _config = config;
+        }
+
         //Async tasks that hit theLott api endpoints
 
-        static HttpClient client = new HttpClient();
-        static LotteryResultsList lottery = new LotteryResultsList();
-        static DrawsList draw = new DrawsList();
+         HttpClient client = new HttpClient();
+         LotteryResultsList lottery = new LotteryResultsList();
+         DrawsList draw = new DrawsList();
 
-        public static LotteryResultsList GetLotteryResultsList()
+        public  LotteryResultsList GetLotteryResultsList()
         {
             RunAsync("lotteryresults").GetAwaiter().GetResult();
             return lottery;
         }
 
-        public static DrawsList GetOpenDrawList()
+        public DrawsList GetOpenDrawList()
         {
             RunAsync("opendraw").GetAwaiter().GetResult();
             return draw;
         }
 
-        static async Task RunAsync(string datatype)
+         async Task RunAsync(string datatype)
         {
-            //TODO: use config keys for endpoints
+            var path = _config.GetValue<string>("Endpoint:Root");
             switch (datatype) {
                 case "lotteryresults":
                     // Get latest results results
-                    lottery = await GetLatestResultsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/latestresults");
+                    lottery = await GetLatestResultsAsync(string.Concat(path + _config.GetValue<string>("Endpoint:LatestResults")));
                     break;
                 case "opendraw":
                     //Get open draws
-                    draw = await GetOpenDrawsAsync("https://data.api.thelott.com/sales/vmax/web/data/lotto/opendraws");
+                    draw = await GetOpenDrawsAsync(string.Concat(path + _config.GetValue<string>("Endpoint:OpenDraws")));
                     break;
             }
         }
 
-        static async Task<LotteryResultsList> GetLatestResultsAsync(string path)
+         async Task<LotteryResultsList> GetLatestResultsAsync(string path)
         {
             LotteryResultsList results = null;
             //TODO: Change to variable/dynamic format
@@ -68,7 +76,7 @@ namespace rsl_challenge.Services
             return results;
         }
 
-        static async Task<DrawsList> GetOpenDrawsAsync(string path)
+         async Task<DrawsList> GetOpenDrawsAsync(string path)
         {
             DrawsList results = null;
             //TODO: Change to variable/dynamic format
