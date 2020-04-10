@@ -1,23 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using rsl_challenge.Models;
 
 namespace rsl_challenge.Repository
 {
-    public class DrawRepository : IDrawsRepository
+    public class DrawRepository 
     {
-        private readonly IConfiguration _config;
-        public DrawRepository(IConfiguration config)
-        {
-            _config = config;
-        }
-        public DrawsList HydrateDraws(DrawsList drawsList) {
-            //Logo replacements
-            var ozLottoLogoUrl = _config.GetValue<string>("DrawLogos:OzLotto");
-            var powerballLogoUrl = _config.GetValue<string>("DrawLogos:Powerball");
-            var GoldLottoLogoUrl = _config.GetValue<string>("DrawLogos:GoldLotto");
+        //Logo replacements
+        private const string ozLottoLogoUrl = "ico--circle--ozlotto.png";
+        private const string powerballLogoUrl = "ico--circle-powerball.png";
+        private const string GoldLottoLogoUrl = "ico--circle-sat-goldlotto.png";
+        public static DrawsList HydrateDraws(DrawsList drawsList) {
 
             var hydratedDraws = new DrawsList();
             hydratedDraws.Draws = new List<Draw>();

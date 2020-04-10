@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rsl_challenge.Models
 {
-    public class DrawsList
+    public class DrawsList : IDrawsList
     {
-        //Collection of draws
         public List<Draw> Draws { get; set; }
         public string ErrorInfo { get; set; }
         public bool Success { get; set; }
     }
+
+    public interface IDrawsList
+    {
+        List<Draw> Draws { get; set; }
+        string ErrorInfo { get; set; }
+        bool Success { get; set; }
+    }
+
 }

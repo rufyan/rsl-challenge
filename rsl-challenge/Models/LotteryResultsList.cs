@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace rsl_challenge.Models
 {
-    public class LotteryResultsList
+    public class LotteryResultsList : ILotteryResultsList
     {
-        //Collection of lottery results
         public List<LotteryResult> DrawResults { get; set; }
+    }
+
+    public interface ILotteryResultsList
+    {
+        List<LotteryResult> DrawResults { get; set; }
     }
 }

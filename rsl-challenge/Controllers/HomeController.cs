@@ -7,28 +7,15 @@ namespace rsl_challenge.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ItheLott _theLott;
-        private readonly IDrawsRepository _drawRepository;
-
-        public HomeController(ItheLott theLott, IDrawsRepository DrawRepository)
-        {
-            _theLott = theLott;
-            _drawRepository = DrawRepository;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() { return View(); }
 
         public IActionResult Draws()
         {
 
             var drawsList = new DrawsList();
-
-            drawsList = _theLott.GetOpenDrawList();
+            drawsList = LotteryService.GetOpenDrawList();
             //If drawsList contains data, hydrate it for the view
-            var hydratedModel = drawsList !=null && drawsList.Draws.Count > 0 ? _drawRepository.HydrateDraws(drawsList) : null;
+            var hydratedModel = drawsList !=null && drawsList.Draws.Count > 0 ? DrawRepository.HydrateDraws(drawsList) : null;
             return View(hydratedModel);
         }
 
