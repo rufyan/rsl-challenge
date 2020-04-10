@@ -23,7 +23,7 @@ a {
 }
 
 table.draw-data {
-    margin:0 auto;
+    margin:20px auto;
     padding: 0;
 }
 
@@ -31,8 +31,9 @@ table.draw-data {
     text-align:left ;
 }
 
-.draw-image {
-    width: 200px;
+th.draw-image {
+    width: 100px;
+    text-align: center;
 }
 
 .draw-number {

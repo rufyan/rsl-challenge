@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace rsl_challenge
 {
     public class EndPoint
@@ -54,13 +53,8 @@ namespace rsl_challenge
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute( "default",
-                    "{controller}/{action}/{id?}",
-                    new { controller = "Home", action = "Index" }
-            );
-            });
+            app.UseMvcWithDefaultRoute();
+            
         }
     }
 }

@@ -6,29 +6,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model != null)
-{
 <h1>@productId draw results</h1>
+@if (Model?.DrawResults.Count > 0)
+{
     <table class="draw-data">
         <thead>
             <tr>
-                <th class="draw-image">Draw</th>
-                <th class="draw-number">Number</th>
-                <th class="draw-name">Name</th>
-                <th class="draw-amount">Jackpot</th>
                 <th class="draw-date">Date</th>
+                <th class="draw-number">Draw number</th>
+                <th class="draw-name">Primary numbers</th>
+                <th class="draw-amount">Secondary numbers</th>
+                <th class="draw-date"></th>
             </tr>
         </thead>
         <tbody>
+
             @foreach (var result in Model.DrawResults)
             {
                 <tr>
                     <td>@result.DrawDate.ToShortDateString()</td>
                     <td>@result.DrawNumber</td>
                     <td>@string.Join(",", result.PrimaryNumbers)</td>
+                    <td>@string.Join(",", result.SecondaryNumbers)</td>
 
                 </tr>
             }
+
         </tbody>
     </table>
 }
@@ -36,3 +39,5 @@ else
 {
     <p>It appears there are no results</p>
 }
+
+<a href="/" class="btn">Back</a>

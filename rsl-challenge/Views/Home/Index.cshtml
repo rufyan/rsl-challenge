@@ -40,7 +40,7 @@
                         @string.Format("{0:C}", draw.Div1Amount)
                     </td>
                     <td>@draw.DrawDate.ToString("dddd, dd MMMM")</td>
-                    <td>@Html.ActionLink("View", "Draw", "Results", new {id = draw.ProductId })</td>
+                    <td>@Html.ActionLink("View", "Draw", "Results", new {id = draw.ProductId }, new { @class = "btn"})</td>
                 </tr>
             }
         </tbody>
@@ -50,5 +50,3 @@ else
 {
     <p>It appears there are no results</p>
 }
-<a href="/home/draws" class="btn">View draws</a>
-
