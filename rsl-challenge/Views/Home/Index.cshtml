@@ -1,4 +1,4 @@
-﻿@model rsl_challenge.Models.LotteryResultsList
+﻿@model rsl_challenge.Models.DrawsList
 
 @{
     ViewData["Title"] = "RSL Code challenge - CProsser";
@@ -7,7 +7,48 @@
 
 <h1>
     Welcome to Conn Prosser&rsquo;s code challenge response
-</h1> 
+</h1>
+@if (Model != null)
+{
+    <table class="draw-data">
+        <thead>
+            <tr>
+                <th class="draw-image">Draw</th>
+                <th class="draw-number">Number</th>
+                <th class="draw-name">Name</th>
+                <th class="draw-amount">Jackpot</th>
+                <th class="draw-date">Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var draw in Model.Draws)
+            {
+                var imageUrl = draw.DrawLogoUrl.Contains("http") ? "draw.DrawLogoUrl" : "../images/" + draw.DrawLogoUrl;
 
+                <tr>
+                    <td>
+                        <picture>
+                            <source srcset="@imageUrl" />
+
+                            <img src="@imageUrl" alt="@draw.ProductId" />
+                        </picture>
+                    </td>
+                    <td>@draw.DrawNumber</td>
+                    <td>@draw.DrawDisplayName</td>
+                    <td>
+                        @string.Format("{0:C}", draw.Div1Amount)
+                    </td>
+                    <td>@draw.DrawDate.ToString("dddd, dd MMMM")</td>
+                    <td>@Html.ActionLink("View", "Draw", "Results", new {id = draw.ProductId })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>It appears there are no results</p>
+}
 <a href="/home/draws" class="btn">View draws</a>
-   
+

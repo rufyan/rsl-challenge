@@ -1,0 +1,38 @@
+﻿@model rsl_challenge.Models.LotteryResultsList
+
+@{
+    var productId = Model?.DrawResults?[0].ProductId;
+    ViewData["Title"] = "RSL Code challenge - CProsser - " + productId;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+<h1>@productId draw results</h1>
+    <table class="draw-data">
+        <thead>
+            <tr>
+                <th class="draw-image">Draw</th>
+                <th class="draw-number">Number</th>
+                <th class="draw-name">Name</th>
+                <th class="draw-amount">Jackpot</th>
+                <th class="draw-date">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model.DrawResults)
+            {
+                <tr>
+                    <td>@result.DrawDate.ToShortDateString()</td>
+                    <td>@result.DrawNumber</td>
+                    <td>@string.Join(",", result.PrimaryNumbers)</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>It appears there are no results</p>
+}
