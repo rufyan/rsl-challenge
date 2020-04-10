@@ -2,13 +2,8 @@
 
 namespace rsl_challenge.Models
 {
-    public class LotteryResultsList : ILotteryResultsList
+    public class LotteryResultsList : ILottery
     {
         public List<LotteryResult> DrawResults { get; set; }
-    }
-
-    public interface ILotteryResultsList
-    {
-        List<LotteryResult> DrawResults { get; set; }
     }
 }
