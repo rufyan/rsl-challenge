@@ -11,7 +11,7 @@ namespace rsl_challenge.Controllers
             var drawsList = new DrawsList();
             drawsList = LotteryService.GetOpenDrawList();
             //If drawsList contains data, hydrate it for the view
-            var hydratedModel = drawsList != null && drawsList.Draws.Count > 0 ? DrawRepository.HydrateDraws(drawsList) : null;
+            var hydratedModel = drawsList?.Draws.Count > 0 ? DrawRepository.HydrateDraws(drawsList) : null;
             return View(hydratedModel);
         }
     }

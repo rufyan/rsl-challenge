@@ -17,7 +17,7 @@ namespace UnitTests
         [TestMethod]
         public void CheckLatestResultsCount()
         {
-            var openLotteryResultsCount = LotteryService.GetLotteryResultsList().DrawResults.Count;
+            var openLotteryResultsCount = LotteryService.GetLotteryResultsList(string.Empty).DrawResults.Count;
             Assert.IsTrue(openLotteryResultsCount > 0);
         }
     }

@@ -28,6 +28,7 @@ namespace rsl_challenge.Services
         public static DrawsList GetOpenDrawList() =>
             GetApiResultsAsync<DrawsList>($"{Url}/opendraws", string.Empty).GetAwaiter().GetResult();
 
+        //Hit the Lott Api
         private static async Task<T> GetApiResultsAsync<T>(string path, string productId) where T : class, ILottery
         {
             var apiQuery = new ApiQuery
@@ -41,8 +42,6 @@ namespace rsl_challenge.Services
             }
             var jsonString = JsonConvert.SerializeObject(apiQuery);
             T results = null;
-            //TODO: Change to variable/dynamic format
-            var str = $"{{ \"CompanyId\": \"Tattersalls\",  \"MaxDrawCountPerProduct\": 2, \"OptionalProductFilter\": {jsonString}}}";
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
             var client = new HttpClient();

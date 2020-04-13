@@ -52,7 +52,6 @@ namespace rsl_challenge
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseMvcWithDefaultRoute();
             
         }

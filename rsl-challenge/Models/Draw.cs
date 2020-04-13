@@ -4,7 +4,6 @@ namespace rsl_challenge.Models
 {
     public class Draw : DrawMeta
     {
-        //Draw, inheriting DrawMeta 
         public string DrawType { get; set; }
         public decimal Div1Amount { get; set; }
         public bool IsDiv1Estimated { get; set; }

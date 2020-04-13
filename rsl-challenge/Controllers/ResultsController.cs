@@ -5,9 +5,6 @@ namespace rsl_challenge.Controllers
 {
     public class ResultsController : Controller
     {
-        public IActionResult Draw([Bind(Prefix="id")]string productId)
-        {
-            return View(LotteryService.GetLotteryResultsList(productId));
-        }
+        public IActionResult Draw([Bind(Prefix="id")]string productId) => View(LotteryService.GetLotteryResultsList(productId));
     }
 }
