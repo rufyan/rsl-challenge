@@ -7,6 +7,9 @@ namespace UnitTests
     public class ApiResponseTest 
     {
         private readonly ILotteryService _lotteryService;
+        public ApiResponseTest()
+        {
+        }
         public ApiResponseTest(ILotteryService LotteryService)
         {
             _lotteryService = LotteryService;

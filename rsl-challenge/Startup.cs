@@ -35,6 +35,7 @@ namespace rsl_challenge
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<EndPoint>(Configuration.GetSection("Endpoint"));
             services.AddTransient<IDrawRepository, DrawRepository>();
             services.AddTransient<ILotteryService, LotteryService>();
 

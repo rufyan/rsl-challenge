@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using rsl_challenge.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,37 +10,41 @@ using System.Threading.Tasks;
 
 namespace rsl_challenge.Services
 {
-    public class ApiQuery {
-        public string CompanyId { get; set; }
-        public string MaxDrawCountPerProduct { get; set; }
-        public List<string> OptionalProductFilter { get; set; }
-    }
     public class LotteryService : ILotteryService
     {
-        private const string Url = "https://data.api.thelott.com/sales/vmax/web/data/lotto";
-        private static List<string> defaultProducts = new List<string> {
-            "OzLotto", "TattsLotto", "Powerball"
-        };
+        private readonly IConfiguration _config;
+        private readonly string _url;
+        private string[] _defaultProducts;
+        private string _companyId;
+
+        public LotteryService(IConfiguration config)
+        {
+            _config = config;
+            _url = _config.GetValue<string>("Endpoint:Root");
+            _defaultProducts = _config.GetSection("DefaultProducts").GetChildren().Select(c => c.Value).ToArray();
+            _companyId = _config.GetValue<string>("CompanyId");
+        }
 
         static readonly HttpClient client = new HttpClient();
 
         public  LotteryResultsList GetLotteryResultsList(string productId) =>
-            GetApiResultsAsync<LotteryResultsList>($"{Url}/latestresults", productId).GetAwaiter().GetResult();
+            GetApiResultsAsync<LotteryResultsList>($"{_url}/{_config.GetValue<string>("Endpoint:LatestResults")}", productId).GetAwaiter().GetResult();
 
         public  DrawsList GetOpenDrawList() =>
-            GetApiResultsAsync<DrawsList>($"{Url}/opendraws", string.Empty).GetAwaiter().GetResult();
+            GetApiResultsAsync<DrawsList>($"{_url}/{_config.GetValue<string>("Endpoint:OpenDraws")}", string.Empty).GetAwaiter().GetResult();
 
         //Hit the Lott Api
         public async Task<T> GetApiResultsAsync<T>(string path, string productId) where T : class, ILottery
         {
-            var apiQuery = new ApiQuery
+
+        var apiQuery = new ApiQuery
             {
-                CompanyId = "Tattersalls",
+                CompanyId = _companyId,
                 MaxDrawCountPerProduct = "2",
-                OptionalProductFilter = defaultProducts
+                OptionalProductFilter = _defaultProducts
             };
             if (!string.IsNullOrEmpty(productId)){
-                apiQuery.OptionalProductFilter = new List<string> { productId };
+                apiQuery.OptionalProductFilter = new string[] { productId };
             }
             var jsonString = JsonConvert.SerializeObject(apiQuery);
             T results = null;
