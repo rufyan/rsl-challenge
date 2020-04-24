@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using rsl_challenge.Models;
 using rsl_challenge.Services;
 
 namespace UnitTests
@@ -19,15 +21,17 @@ namespace UnitTests
         [TestMethod]
         public void CheckOpenDrawsCount()
         {
-            var openDrawCount = _lotteryService.GetOpenDrawList().Draws.Count;
-            Assert.IsTrue(openDrawCount > 0);
+            var list = new DrawsList();
+            var mockService = new Mock<ILotteryService>();
+            mockService.Setup(x => x.GetOpenDrawList()).Returns(list);
         }
 
         [TestMethod]
         public void CheckLatestResultsCount()
         {
-            var openLotteryResultsCount = _lotteryService.GetLotteryResultsList(string.Empty).DrawResults.Count;
-            Assert.IsTrue(openLotteryResultsCount > 0);
+            var list = new LotteryResultsList();
+            var mockService = new Mock<ILotteryService>();
+            mockService.Setup(x => x.GetLotteryResultsList("")).Returns(list);
         }
     }
 }
