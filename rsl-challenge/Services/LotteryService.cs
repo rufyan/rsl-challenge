@@ -13,7 +13,7 @@ namespace rsl_challenge.Services
         public string MaxDrawCountPerProduct { get; set; }
         public List<string> OptionalProductFilter { get; set; }
     }
-    public class LotteryService
+    public class LotteryService : ILotteryService
     {
         private const string Url = "https://data.api.thelott.com/sales/vmax/web/data/lotto";
         private static List<string> defaultProducts = new List<string> {
@@ -22,14 +22,14 @@ namespace rsl_challenge.Services
 
         static readonly HttpClient client = new HttpClient();
 
-        public static LotteryResultsList GetLotteryResultsList(string productId) =>
+        public  LotteryResultsList GetLotteryResultsList(string productId) =>
             GetApiResultsAsync<LotteryResultsList>($"{Url}/latestresults", productId).GetAwaiter().GetResult();
 
-        public static DrawsList GetOpenDrawList() =>
+        public  DrawsList GetOpenDrawList() =>
             GetApiResultsAsync<DrawsList>($"{Url}/opendraws", string.Empty).GetAwaiter().GetResult();
 
         //Hit the Lott Api
-        private static async Task<T> GetApiResultsAsync<T>(string path, string productId) where T : class, ILottery
+        public async Task<T> GetApiResultsAsync<T>(string path, string productId) where T : class, ILottery
         {
             var apiQuery = new ApiQuery
             {

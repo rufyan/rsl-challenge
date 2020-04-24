@@ -3,14 +3,14 @@ using rsl_challenge.Models;
 
 namespace rsl_challenge.Repository
 {
-    public class DrawRepository 
+    public class DrawRepository  : IDrawRepository
     {
         //Logo replacements
         private const string ozLottoLogoUrl = "ico--circle--ozlotto.png";
         private const string powerballLogoUrl = "ico--circle-powerball.png";
         private const string GoldLottoLogoUrl = "ico--circle-sat-goldlotto.png";
 
-        public static DrawsList HydrateDraws(DrawsList drawsList)
+        public DrawsList HydrateDraws(DrawsList drawsList)
         {
             var hydratedDraws = new DrawsList
             {

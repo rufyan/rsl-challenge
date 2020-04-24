@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using rsl_challenge.Repository;
+using rsl_challenge.Services;
 
 namespace rsl_challenge
 {
@@ -33,6 +35,8 @@ namespace rsl_challenge
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<IDrawRepository, DrawRepository>();
+            services.AddTransient<ILotteryService, LotteryService>();
 
         }
 
