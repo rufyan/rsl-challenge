@@ -25,14 +25,14 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public async Task GetResultsApiAsync_ReturnsDrawsList()
+        public async Task GetResultsApiAsync_ReturnsValidList()
         {
-            var result = await _lotteryService.GetApiResultsAsync<DrawsList>($"https://data.api.thelott.com/sales/vmax/web/data/lotto/opendraws", string.Empty);
-            Assert.IsNotNull(result);
+            var result = await _lotteryService.GetApiResultsAsync<DrawsList>("https://data.api.thelott.com/sales/vmax/web/data/lotto/opendraws", string.Empty);
+            Assert.IsNotNull(result.Draws);
         }
 
         [TestMethod]
-        public void HydrateDraws_ReturnsDifferentDrawsList()
+        public void HydrateDraws_ReturnsUpdatedDrawsList()
         {
             //Arrange
             var testDrawsList = Substitute.For<DrawsList>();

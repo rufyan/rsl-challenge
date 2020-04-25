@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace rsl_challenge.Services
 {
     public class LotteryService : ILotteryService
@@ -27,10 +26,10 @@ namespace rsl_challenge.Services
         readonly HttpClient client = new HttpClient();
 
         public LotteryResultsList GetLotteryResultsList(string productId) =>
-            GetApiResultsAsync<LotteryResultsList>($"{_url}/{_config.GetValue<string>("Endpoint:LatestResults")}", productId).GetAwaiter().GetResult();
+            GetApiResultsAsync<LotteryResultsList>($"{_url}{_config.GetValue<string>("Endpoint:LatestResults")}", productId).GetAwaiter().GetResult();
 
         public DrawsList GetOpenDrawList() =>
-            GetApiResultsAsync<DrawsList>($"{_url}/{_config.GetValue<string>("Endpoint:OpenDraws")}", string.Empty).GetAwaiter().GetResult();
+            GetApiResultsAsync<DrawsList>($"{_url}{_config.GetValue<string>("Endpoint:OpenDraws")}", string.Empty).GetAwaiter().GetResult();
 
         //Hit the Lott Api
         public async Task<T> GetApiResultsAsync<T>(string path, string productId) where T : class, ILottery
@@ -38,7 +37,7 @@ namespace rsl_challenge.Services
             var apiQuery = new ApiQuery
             {
                 CompanyId = _companyId,
-                MaxDrawCountPerProduct = "2",
+                MaxDrawCountPerProduct = "3",
                 OptionalProductFilter = _defaultProducts
             };
 
